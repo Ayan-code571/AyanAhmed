@@ -68,7 +68,7 @@
 							<tbody>
 								<?php 
 								$i = 1;
-								$plan = $conn->query("SELECT * FROM loan_plan order by id asc");
+								$plan = $conn->query("SELECT * FROM loans order by loanID asc");
 								while($row=$plan->fetch_assoc()):
 									$months = $row['months'];
 									$months = $months / 12;

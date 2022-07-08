@@ -5,9 +5,9 @@
 		<div class="card">
 			<div class="card-header">
 				<large class="card-title">
-					<b>Borrower List</b>
+					<b>Clients List</b>
 				</large>
-				<button class="btn btn-primary btn-block col-md-2 float-right" type="button" id="new_borrower"><i class="fa fa-plus"></i> New Borrower</button>
+				<button class="btn btn-primary btn-block col-md-2 float-right" type="button" id="new_borrower"><i class="fa fa-plus"></i> New Client</button>
 			</div>
 			<div class="card-body">
 				<table class="table table-bordered" id="borrower-list">
@@ -21,7 +21,7 @@
 					<thead>
 						<tr>
 							<th class="text-center">#</th>
-							<th class="text-center">Borrower</th>
+							<th class="text-center">Client</th>
 							<th class="text-center">Current Loan</th>
 							<th class="text-center">Next Payment Schedule</th>
 							<th class="text-center">Action</th>
@@ -30,7 +30,7 @@
 					<tbody>
 						<?php
 						$i = 1;
-							$qry = $conn->query("SELECT * FROM borrowers order by id desc");
+							$qry = $conn->query("SELECT * FROM client order by clientID desc");
 							while($row = $qry->fetch_assoc()):
 
 						 ?>
@@ -38,7 +38,7 @@
 						 	
 						 	<td class="text-center"><?php echo $i++ ?></td>
 						 	<td>
-						 		<p>Name :<b><?php echo ucwords($row['lastname'].", ".$row['firstname'].' '.$row['middlename']) ?></b></p>
+						 		<p>Name :<b><?php echo ucwords($row['lastname'].", ".$row['firstname']) ?></b></p>
 						 		<p><small>Address :<b><?php echo $row['address'] ?></small></b></p>
 						 		<p><small>Contact # :<b><?php echo $row['contact_no'] ?></small></b></p>
 						 		<p><small>Email :<b><?php echo $row['email'] ?></small></b></p>

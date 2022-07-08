@@ -1,7 +1,7 @@
 <?php 
 include('db_connect.php');
 if(isset($_GET['id'])){
-$qry = $conn->query("SELECT * FROM loan_list where id = ".$_GET['id']);
+$qry = $conn->query("SELECT * FROM loans where loanID = ".$_GET['id']);
 foreach($qry->fetch_array() as $k => $v){
 	$$k = $v;
 }
@@ -13,21 +13,21 @@ foreach($qry->fetch_array() as $k => $v){
 		<input type="hidden" name="id" value="<?php echo isset($_GET['id']) ? $_GET['id'] : '' ?>">
 		<div class="row">
 			<div class="col-md-6">
-				<label class="control-label">Borrower</label>
+				<label class="control-label">Client</label>
 				<?php
-				$borrower = $conn->query("SELECT *,concat(lastname,', ',firstname,' ',middlename) as name FROM borrowers order by concat(lastname,', ',firstname,' ',middlename) asc ");
+				$borrower = $conn->query("SELECT *,concat(lastname,', ',firstname) as name FROM client order by concat(lastname,', ',firstname) asc ");
 				?>
 				<select name="borrower_id" id="borrower_id" class="custom-select browser-default select2">
 					<option value=""></option>
 						<?php while($row = $borrower->fetch_assoc()): ?>
-							<option value="<?php echo $row['id'] ?>" <?php echo isset($borrower_id) && $borrower_id == $row['id'] ? "selected" : '' ?>><?php echo $row['name'] . ' | Tax ID:'.$row['tax_id'] ?></option>
+							<option value="<?php echo $row['id'] ?>" <?php echo isset($borrower_id) && $borrower_id == $row['id'] ? "selected" : '' ?>><?php echo $row['name'] . ' | TaxID:'.$row['tax_id'] ?></option>
 						<?php endwhile; ?>
 				</select>
 			</div>
 			<div class="col-md-6">
 				<label class="control-label">Loan Type</label>
 				<?php
-				$type = $conn->query("SELECT * FROM loan_types order by `type_name` desc ");
+				$type = $conn->query("SELECT * FROM loans order by `type_name` desc ");
 				?>
 				<select name="loan_type_id" id="loan_type_id" class="custom-select browser-default select2">
 					<option value=""></option>
@@ -43,7 +43,7 @@ foreach($qry->fetch_array() as $k => $v){
 			<div class="col-md-6">
 				<label class="control-label">Loan Plan</label>
 				<?php
-				$plan = $conn->query("SELECT * FROM loan_plan order by `months` desc ");
+				$plan = $conn->query("SELECT * FROM loans order by `months` desc ");
 				?>
 				<select name="plan_id" id="plan_id" class="custom-select browser-default select2">
 					<option value=""></option>
@@ -77,16 +77,16 @@ foreach($qry->fetch_array() as $k => $v){
 			<div class="form-group col-md-6">
 				<label class="control-label">&nbsp;</label>
 				<select class="custom-select browser-default" name="status">
-					<option value="0" <?php echo $status == 0 ? "selected" : '' ?>>For Approval</option>
-					<option value="1" <?php echo $status == 1 ? "selected" : '' ?>>Approved</option>
+					<option value="0" <?php echo $status == 0 ? "selected" : '' ?>>Pending</option>
+					<option value="1" <?php echo $status == 1 ? "selected" : '' ?>>Accepted</option>
 					<?php if($status !='4' ): ?>
-					<option value="2" <?php echo $status == 2 ? "selected" : '' ?>>Released</option>
+					<option value="2" <?php echo $status == 2 ? "selected" : '' ?>>Pending Loan</option>
 					<?php endif ?>
 					<?php if($status =='2' ): ?>
-					<option value="3" <?php echo $status == 3 ? "selected" : '' ?>>Complete</option>
+					<option value="3" <?php echo $status == 3 ? "selected" : '' ?>>Completed</option>
 					<?php endif ?>
 					<?php if($status !='2' ): ?>
-					<option value="4" <?php echo $status == 4 ? "selected" : '' ?>>Denied</option>
+					<option value="4" <?php echo $status == 4 ? "selected" : '' ?>>Rejected</option>
 					<?php endif ?>
 				</select>
 			</div>

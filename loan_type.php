@@ -54,7 +54,7 @@
 							<tbody>
 								<?php 
 								$i = 1;
-								$types = $conn->query("SELECT * FROM loan_types order by id asc");
+								$types = $conn->query("SELECT * FROM loans order by loanID asc");
 								while($row=$types->fetch_assoc()):
 								?>
 								<tr>

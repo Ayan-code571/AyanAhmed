@@ -25,7 +25,7 @@
 			<tbody>
 				<?php
  					include 'db_connect.php';
- 					$users = $conn->query("SELECT * FROM users order by name asc");
+ 					$users = $conn->query("SELECT * FROM roles order by firstname asc");
  					$i = 1;
  					while($row= $users->fetch_assoc()):
 				 ?>
@@ -34,7 +34,7 @@
 				 		<?php echo $i++ ?>
 				 	</td>
 				 	<td>
-				 		<?php echo $row['name'] ?>
+				 		<?php echo $row['firstname'] ?>
 				 	</td>
 				 	<td>
 				 		<?php echo $row['username'] ?>
